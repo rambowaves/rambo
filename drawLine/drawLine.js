@@ -38,6 +38,7 @@ function draw(e) {
     }
 }
 var amount = 0;
+var amount2 = 0;
 function actuallyDraw(e, f){
     var pointx = clickPosition(e)[0];
     var pointy = clickPosition(e)[1];
@@ -52,8 +53,15 @@ function actuallyDraw(e, f){
     setTimeout(function() {
         clearInterval(stopWhen);
         amount = 0;
-    }, 360);
-    
+    }, 331);
+    setTimeout(function() {
+    context.beginPath();
+    stopWhen2 = setInterval("clearLoop("+x+","+y+","+pointx+","+pointy+")", 30);
+    setTimeout(function() {
+        clearInterval(stopWhen2);
+        amount2 = 0;
+    }, 331);
+    }, 332);
 }
 
 function loop(x,y,pointx,pointy){
@@ -61,7 +69,19 @@ function loop(x,y,pointx,pointy){
     if (amount > 1) amount = 1;
     context.moveTo(x, y);
     context.lineTo(x + (pointx - x) * amount, y + (pointy - y) * amount);
+    context.lineWidth = 2;
     context.strokeStyle = "white";
     context.stroke();
     console.log(amount);
+}
+
+function clearLoop(x,y,pointx,pointy){
+    amount2 += 0.1; // change to alter duration
+    if (amount2 > 1) amount2 = 1;
+    context.moveTo(x, y);
+    context.lineTo(x + (pointx - x) * amount2, y + (pointy - y) * amount2);
+    context.lineWidth = 4;
+    context.strokeStyle = "black";
+    context.stroke();
+    console.log("amount2 is" + amount2);
 }
